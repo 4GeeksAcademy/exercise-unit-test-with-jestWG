@@ -6,7 +6,7 @@ test('adds 14 + 9 to equal 23', () => {
     let total = sum(14, 9);
 
     // We expect the sum of those 2 numbers to be 23
-    expect(total).toBe(23);
+    expect(total).toBeCloseTo(23);
 });
 
 test("One euro should be 1.07 dollars", function() {
@@ -20,5 +20,23 @@ test("One euro should be 1.07 dollars", function() {
     const expected = 3.5 * 1.07; 
     
     // This is the comparison for the unit test
-     expect(fromEuroToDollar(3.5)).toBe(3.745); // 1 euro is 1.07 dollars, then 3.5 euros should be = (3.5 * 1.07)
+     expect(fromEuroToDollar(3.5)).toBeCloseTo(3.745); // 1 euro is 1.07 dollars, then 3.5 euros should be = (3.5 * 1.07)
 })
+
+test("One dollar should be about 146.26 yen", function() {
+    const { fromDollarToYen } = require('./app.js');
+
+    const yen = fromDollarToYen(1);
+    const expected = (1 / 1.07) * 156.5;  // convert USD → EUR → JPY
+
+    expect(yen).toBeCloseTo(expected); 
+});
+
+test("One yen should be about 0.00556 pounds", function() {
+    const { fromYenToPound } = require('./app.js');
+
+    const pounds = fromYenToPound(1);
+    const expected = (1 / 156.5) * 0.87;  // convert JPY → EUR → GBP
+
+    expect(pounds).toBeCloseTo(expected); 
+});
